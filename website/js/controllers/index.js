@@ -134,7 +134,7 @@ function listStudentView() {
     </thead>
     <tbody>`;
 
-  let url = `${_config.API_SERVER_URL}/student`;
+  let url = `${_config.API_SERVERLESS_URL}/student`;
   $.ajax({
     type: "GET",
     url: url,
@@ -254,7 +254,7 @@ function listAttendanceView() {
   html = `
   <h1>Listado de asistencias</h1>`;
 
-  let url = `${_config.API_SERVER_URL}/attendance`
+  let url = `${_config.API_SERVERLESS_URL}/attendance`
   $.ajax({
     type: "GET",
     url: url,
@@ -301,6 +301,7 @@ function listAttendanceView() {
             html += `
               </tbody>
             </table>
+            <br/>
             `;
           }
         content.innerHTML = html;

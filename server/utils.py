@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify
 import hashlib
 import logging
 import hmac
@@ -7,11 +6,10 @@ import base64
 logging.basicConfig(level=logging.INFO)
 
 def bad_request(message):
-    response = jsonify({
-        'message': message,
-    })
-    response.status_code = 400
-    #logging.info(response.__dict__)
+    response = {
+        'status_code': 400,
+        'message': message
+    }
     return response, 400, {'content-type': 'application/json'}
 
 def get_encrypt_string(hash_string):

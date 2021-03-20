@@ -2,7 +2,7 @@
 import boto3
 import botocore
 from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key, Attr
+
 from flask import Blueprint, request, abort, jsonify
 from flask_cors import CORS, cross_origin
 
