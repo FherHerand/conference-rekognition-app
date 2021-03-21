@@ -57,7 +57,7 @@ def get_students():
 def add_attendance(name, full_image_path, relative_image_path, similarity):
     client = get_dynamodb_client()
     try:
-        id = uuid.uuid4()
+        id = str(uuid.uuid4())
         timestamp = str(datetime.now().timestamp())
         response = client.put_item(
             TableName='attendance',
