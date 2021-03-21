@@ -73,17 +73,17 @@ def add_attendance(name, full_image_path, relative_image_path, similarity):
             },
         )
         #logging.info(response)
-        return response, id, True
+        return response, id, timestamp, True
     except ClientError as e:
         logging.error(e)
-        return bad_request('No se pudo registrar la asistencia'), None, False
+        return bad_request('No se pudo registrar la asistencia'), None, None, False
 
-def add_student_to_attendance(attendance_id, student):
+def add_student_to_attendance(attendance_id, timestamp, student):
     client = get_dynamodb_client()
     try:
         response = client.update_item(
             TableName='attendance',
-            Key={'id': {'S': attendance_id}},
+            Key={'id': {'S': attendance_id}, 'timestamp': {'N': timestamp}},
             UpdateExpression='SET #students = list_append(#students, :new_student)',
             ExpressionAttributeNames={
                 '#students': 'students',

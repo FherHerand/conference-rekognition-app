@@ -169,7 +169,7 @@ def attendance():
                 full_image_path = metadata['full_path']
                 relative_image_path = metadata['key']
             
-                dynamodb_response, attendance_id, success = dynamodb.add_attendance(name, full_image_path, relative_image_path, similarity)
+                dynamodb_response, attendance_id, timestamp, success = dynamodb.add_attendance(name, full_image_path, relative_image_path, similarity)
                 if success:
                     for student in students_dynamodb_response['Items']:
                         rek_response, success = rekognition.compare_faces_image_path_path(bucketname, student['relative_image_path'], relative_image_path, similarity)
@@ -179,7 +179,7 @@ def attendance():
                         else:
                             student['assist'] = False
                         
-                        dynamodb_response, success = dynamodb.add_student_to_attendance(attendance_id, student)
+                        dynamodb_response, success = dynamodb.add_student_to_attendance(attendance_id, timestamp, student)
                     
                     data = {
                         'name': name,
