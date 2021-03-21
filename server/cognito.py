@@ -86,7 +86,7 @@ def get_users():
         response = client.list_users(
             UserPoolId=creds.COGNITO_USER_POOL_ID,
         )
-        logging.info(response)
+        #logging.info(response)
         return response, True
     except ClientError as e:
         logging.error(e)

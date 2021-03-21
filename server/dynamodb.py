@@ -47,7 +47,7 @@ def get_students():
     try:
         table = client.Table('student')
         response = table.scan()
-        logging.info(response)
+        #logging.info(response)
         return response, True
     except ClientError as e:
         logging.error(e)
@@ -112,7 +112,7 @@ def get_attendances():
     try:
         table = client.Table('attendance')
         response = table.scan()
-        logging.info(response)
+        #logging.info(response)
         return response, True
     except ClientError as e:
         logging.error(e)

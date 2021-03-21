@@ -172,7 +172,7 @@ def attendance():
                 dynamodb_response, attendance_id, success = dynamodb.add_attendance(name, full_image_path, relative_image_path, similarity)
                 if success:
                     for student in students_dynamodb_response['Items']:
-                        rek_response, success = rekognition.compare_faces_image_path_path(bucketname, relative_image_path, student['relative_image_path'], similarity)
+                        rek_response, success = rekognition.compare_faces_image_path_path(bucketname, student['relative_image_path'], relative_image_path, similarity)
                         if success:
                             assist = len(rek_response['FaceMatches']) > 0
                             student['assist'] = assist
