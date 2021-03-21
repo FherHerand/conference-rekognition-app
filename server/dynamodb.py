@@ -4,6 +4,7 @@ import botocore
 from botocore.exceptions import ClientError, ParamValidationError
 
 from datetime import datetime
+import uuid
 
 from server import credentials as creds
 from server.utils import bad_request, logging
@@ -56,11 +57,13 @@ def get_students():
 def add_attendance(name, full_image_path, relative_image_path, similarity):
     client = get_dynamodb_client()
     try:
-        id = str(datetime.now().timestamp())
+        id = uuid.uuid4()
+        timestamp = str(datetime.now().timestamp())
         response = client.put_item(
             TableName='attendance',
             Item={
-                'timestamp': {'N': id},
+                'id': {'S': id},
+                'timestamp': {'N': timestamp},
                 'name': {'S': name},
                 'full_image_path': {'S': full_image_path},
                 'relative_image_path': {'S': relative_image_path},
@@ -80,7 +83,7 @@ def add_student_to_attendance(attendance_id, student):
     try:
         response = client.update_item(
             TableName='attendance',
-            Key={'timestamp': {'N': attendance_id}},
+            Key={'id': {'S': attendance_id}},
             UpdateExpression='SET #students = list_append(#students, :new_student)',
             ExpressionAttributeNames={
                 '#students': 'students',

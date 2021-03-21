@@ -112,7 +112,7 @@ def compare_faces_image_path_path(bucketname, source_image_path, target_image_pa
                 },
                 SimilarityThreshold=similarity_threshold,
             )
-            logging.info(response)
+            #logging.info(response)
             return response, True
         except ClientError as e:
             logging.error(e)
