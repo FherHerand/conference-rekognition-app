@@ -264,6 +264,7 @@ function listAttendanceView() {
       desactivateSpinner();
       if (xhr.status === 200) {
         console.log('data', data);
+        data.items.sort(compareTimestamp);
         for (i in data.items) {
           item = data.items[i];
           html += `
@@ -318,21 +319,11 @@ function listAttendanceView() {
   });
 }
 
-compare_p_name = function (a, b) {
-  if (a.p_name < b.p_name) {
+compareTimestamp = function (a, b) {
+  if (a.timestamp > b.timestamp) {
     return -1;
   }
-  if (a.p_name > b.p_name) {
-    return 1;
-  }
-  return 0;
-}
-
-compare_a_date = function (a, b) {
-  if (a.date > b.date) {
-    return -1;
-  }
-  if (a.date < b.date) {
+  if (a.timestamp < b.timestamp) {
     return 1;
   }
   return 0;
